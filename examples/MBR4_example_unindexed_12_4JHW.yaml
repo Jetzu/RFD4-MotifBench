@@ -1,0 +1,19 @@
+12_4JHW:
+  input: ../motifs/12_4JHW.cif
+  contig: SCAF:100, A101-117, A201-207
+  conditions:
+    C_CRD:
+      true:
+      - select: sel('A/*/[102, 104, 105, 106, 107, 109, 110, 111, 112, 113, 114, 115,
+          202, 203, 204, 205, 206]')
+      - select: sel('A/*/[101, 103, 108, 116, 117, 201, 207]') and is_protein_backbone
+    C_SEQ:
+      true:
+      - select: sel('A/*/[102, 104, 105, 106, 107, 109, 110, 111, 112, 113, 114, 115,
+          202, 203, 204, 205, 206]')
+    C_IDX:
+      false:
+      - select: sel('A/*/[101-117]')
+        group: seg1
+      - select: sel('A/*/[201-207]')
+        group: seg2

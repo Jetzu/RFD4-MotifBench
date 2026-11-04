@@ -1,0 +1,9 @@
+mode,Group,Number_Solved_mean,Number_Solved_std,Mean_Num_Solutions_mean,Mean_Num_Solutions_std,Mean_Novelty_mean,Mean_Novelty_std,Mean_Success_rate_mean,Mean_Success_rate_std
+indexed,1,10.000,0.000,35.333,1.704,0.353,0.006,48.533,1.266
+indexed,2,9.333,0.577,6.500,0.265,0.357,0.025,32.267,1.332
+indexed,3,9.000,0.000,19.667,1.626,0.313,0.006,58.033,2.515
+indexed,overall,28.333,0.577,20.500,1.042,0.340,0.010,46.280,1.681
+unindexed,1,9.667,0.577,36.800,0.964,0.347,0.023,44.867,0.702
+unindexed,2,9.333,0.577,7.733,0.252,0.360,0.036,23.467,0.757
+unindexed,3,9.000,0.000,21.600,0.854,0.333,0.006,32.733,0.611
+unindexed,overall,28.000,1.000,22.047,0.586,0.343,0.015,33.690,0.429
