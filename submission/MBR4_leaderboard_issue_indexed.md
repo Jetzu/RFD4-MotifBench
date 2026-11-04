@@ -20,7 +20,7 @@ Per problem: `rep1/results/summary_by_problem.csv` in the archive.
 
 ## 2. Permanent download link
 
-`<Zenodo DOI>`: `MBR4_RFD4_indexed_MotifBench_submission.zip` with the submitted scaffold sets (rep1-3, MotifBench format), the full
+[10.5281/zenodo.23942848](https://doi.org/10.5281/zenodo.23942848): `MBR4_RFD4_indexed_MotifBench_submission.zip` with the submitted scaffold sets (rep1-3, MotifBench format), the full
 evaluation output (`evaluate_bbs.sh`, 30 problems × 3 replicates), the summaries, the raw RFD4 outputs, the inputs and the scripts.
 
 ## 3. How the scaffolds were generated
