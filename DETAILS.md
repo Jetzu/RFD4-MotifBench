@@ -299,4 +299,5 @@ For a single leaderboard entry per mode, `rep1` was designated before any scores
 
 ## Contact
 
-Lukas Gerstung, lukas.gerstung@tum.de
+- Lukas Gerstung, lukas.gerstung@tum.de
+- Lorenz Kleiter, lorenz.kleiter@tum.de

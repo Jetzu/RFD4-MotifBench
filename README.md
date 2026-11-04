@@ -92,4 +92,5 @@ A5000 / RTX 4090 on a university cluster (TUM).
 
 ## Contact
 
-Lukas Gerstung, lukas.gerstung@tum.de
+- Lukas Gerstung, lukas.gerstung@tum.de
+- Lorenz Kleiter, lorenz.kleiter@tum.de
