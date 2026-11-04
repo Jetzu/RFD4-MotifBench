@@ -1,5 +1,4 @@
-# Origin: cc
-# Purpose: Run the official MotifBench evaluate_bbs.sh for one (set, case) on a Modal A10G, using the exact local stack.
+# Run the official MotifBench evaluate_bbs.sh for one (set, case) on a Modal L40S (3 problems share one GPU), using the same environment as the cluster runs.
 # Machine-specific locations are environment variables (see config.example.env); SLURM account/partition lines removed.
 """
 Same environment as the local runs, at the same absolute paths:
@@ -10,8 +9,8 @@ Scaffold and result directories also keep their local absolute paths, so the res
 indistinguishable from local runs. Only change vs the official call (same as local): cwd is a
 work dir with a setup.cfg root marker and hydra.run.dir points there.
 
-Deploy once:   modal deploy MBR4_modal_eval_cc.py          (max 10 A10G containers in total)
-Drive:         python MBR4_modal_eval_cc.py <tasks.tsv> [<tasks.tsv> ...]   (see client() below)
+Deploy once:   modal deploy modal_evaluate.py          (L40S, 3 problems per GPU)
+Drive:         python modal_evaluate.py <tasks.tsv> [<tasks.tsv> ...]   (see client() below)
 """
 import io
 import json

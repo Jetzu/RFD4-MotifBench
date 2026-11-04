@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
-# Origin: cc
-# Purpose: Run the official MotifBench evaluate_bbs.sh for one case/config from a writable work dir (shared checkout is read-only).
+# Run the official MotifBench evaluate_bbs.sh for one case/config from a writable work dir (shared checkout is read-only).
 # Machine-specific locations are environment variables (see config.example.env); SLURM account/partition lines removed.
-# Usage: MBR4_eval_case_cc.sh <case> <config.txt> <workdir>
+# Usage: evaluate_case.sh <case> <config.txt> <workdir>
 # On Pascal GPUs (sm_61) the motif_bench env's torch (cu128, sm_70+) is overlaid with torch 2.8.0+cu126.
 set -uo pipefail
 CASE=$1; CFG=$2; WD=$3

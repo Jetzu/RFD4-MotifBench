@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
-# Origin: cc
-# Purpose: Run python (or any command) inside the RFD4-Proteina cu128 container with $BIND_PATHS bound.
+# Run python (or any command) inside the RFD4-Proteina cu128 container with $BIND_PATHS bound.
 # Machine-specific locations are environment variables (see config.example.env); SLURM account/partition lines removed.
 AP=${APPTAINER:-apptainer}
 SIF=${RFD4_SIF:?set RFD4_SIF}

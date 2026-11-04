@@ -31,7 +31,7 @@ Companion to the RFD3 runs by Lorenz Kleiter:
   (Hugging Face revision `a06e2509`), run from the lab's CUDA 12.8 Apptainer image.
 - **Sampler:** defaults (60 steps, `thinking_medium` recycling, bf16), no metrics, oracles, beam search,
   filtering or reranking. **Every generated design is submitted** (100 per problem).
-- **Contigs:** MotifBench's reference contigs (`scripts/MBR4_contig_specifications.csv`, copied from MotifBench's
+- **Contigs:** MotifBench's reference contigs ([`examples/contig_specifications.csv`](examples/contig_specifications.csv), copied from MotifBench's
   `example/contig_specifications.csv`), identical to the RFD3 runs. Total lengths from `test_cases.csv`.
 - **Motif input:** each problem is ONE motif. All motif segments are merged onto one chain of one input
   structure (RFD4 contigs cannot build one output chain from several input chains), keeping their
@@ -224,23 +224,18 @@ None of them passes the MotifBench filters, so they do not inflate the score.
 
 ## Scripts
 
-These are the scripts that were run. Machine-specific locations (MotifBench install, conda env, Foldseek database, RFD4 image and weights, project directory) are read from environment variables, see [`scripts/config.example.env`](scripts/config.example.env); cluster-specific SLURM account/partition lines were removed, add your own.
+Only the scripts that produced the submitted data. Machine-specific locations (MotifBench install, conda env, Foldseek
+database, RFD4 image and weights, project directory) are read from environment variables, see
+[`scripts/config.example.env`](scripts/config.example.env).
 
-| script | role |
-|---|---|
-| [`MBR4_build_specs_cc.py`](scripts/MBR4_build_specs_cc.py) | build the motif CIFs (segments merged on one chain) and the indexed/unindexed condition-spec YAMLs |
-| [`MBR4_rfd4_generate_cc.sh`](scripts/MBR4_rfd4_generate_cc.sh), [`MBR4_gen_array_cc.sbatch`](scripts/MBR4_gen_array_cc.sbatch) | generation, one SLURM array task per mode × replicate × 10 problems |
-| [`MBR4_convert_to_motifbench_cc.py`](scripts/MBR4_convert_to_motifbench_cc.py) | CIF → PDB plus `scaffold_info.csv` (indexed: sampled layout; unindexed: insertion mapping, window repair) |
-| [`MBR4_modal_eval_cc.py`](scripts/MBR4_modal_eval_cc.py), [`MBR4_supervisor_cc.sbatch`](scripts/MBR4_supervisor_cc.sbatch) | official `evaluate_bbs.sh` on Modal, resumable driver |
-| [`MBR4_summarize_triplicates_cc.py`](scripts/MBR4_summarize_triplicates_cc.py) | aggregate the official summaries over replicates |
-| [`MBR4_peptide_bond_census_cc.py`](scripts/MBR4_peptide_bond_census_cc.py) | chain-break analysis |
-| [`MBR4_motifbench_figures_up.py`](scripts/MBR4_motifbench_figures_up.py) | figures and tables (adapted from the RFD3 plotting script) |
-| [`MBR4_modal_rfd4_gen_cc.py`](scripts/MBR4_modal_rfd4_gen_cc.py) | RFD4-Proteina generation on Modal GPUs (same package set as the Apptainer image) |
-| [`MBR4_sweep_supervisor_cc.sbatch`](scripts/MBR4_sweep_supervisor_cc.sbatch), [`MBR4_sweep_figures_cc.py`](scripts/MBR4_sweep_figures_cc.py) | recycle-strategy sweep (`thinking_low` / `thinking_high`) end to end, comparison figures |
-| [`MBR4_timing_tables_cc.py`](scripts/MBR4_timing_tables_cc.py) | timing / GPU tables from the job logs |
-| [`MBR4_eval_case_cc.sh`](scripts/MBR4_eval_case_cc.sh), [`MBR4_eval_array_cc.sbatch`](scripts/MBR4_eval_array_cc.sbatch), [`MBR4_convert_set_cc.sbatch`](scripts/MBR4_convert_set_cc.sbatch) | cluster evaluation of one problem, conversion of one set |
-| [`MBR4_rfd4py_cc.sh`](scripts/MBR4_rfd4py_cc.sh), [`config.example.env`](scripts/config.example.env) | run commands in the RFD4 Apptainer image; the environment variables all scripts read |
-| [`MBR4_contig_specifications.csv`](scripts/MBR4_contig_specifications.csv) | the reference contigs, copied from MotifBench's `example/` directory |
+| step | script | what it does |
+|---|---|---|
+| 1. inputs | [`build_specs.py`](scripts/build_specs.py) | motif CIFs (all segments of a motif on one chain) and the RFD4 condition specs: indexed (100 designs per problem, gap lengths sampled inside the contig ranges, total length fixed) and unindexed |
+| 2. generation | [`rfd4_generate.sh`](scripts/rfd4_generate.sh), [`rfd4_container.sh`](scripts/rfd4_container.sh) | `rfd4-generate` on one spec file inside the RFD4-Proteina Apptainer image |
+| 3. conversion | [`convert_to_motifbench.py`](scripts/convert_to_motifbench.py) | RFD4 output CIFs → MotifBench scaffold PDBs + `scaffold_info.csv` (indexed: sampled layout; unindexed: RFD4 insertion mapping, window repair where needed) |
+| 4. evaluation | [`evaluate_case.sh`](scripts/evaluate_case.sh) (cluster), [`modal_evaluate.py`](scripts/modal_evaluate.py) (Modal L40S) | MotifBench's own `evaluate_bbs.sh` for one problem; the only differences to a plain call are the working directory and the Foldseek thread count |
+
+Summaries are MotifBench's own `scripts/summarize_results.sh`, run once per replicate.
 
 
 ## Timing and hardware
@@ -288,7 +283,7 @@ In this repository:
 | [`results/`](results) | official summaries per replicate (`summary_by_problem.csv`, `overall_summary.csv`), cross-pipeline tables, chain-break census |
 | [`evaluation_tables/`](evaluation_tables) | per-design evaluation tables for every problem and replicate (`esm_complete_results.csv`, `esm_summary_results.csv`, `esm_novelty_results.csv`, `diversity_cluster.tsv`, `esm_summary.txt`) |
 | [`submission/`](submission) | the MotifBench leaderboard submission text per mode |
-| [`figures/`](figures), [`scripts/`](scripts), [`examples/`](examples) | figures, all scripts, example inputs |
+| [`figures/`](figures), [`scripts/`](scripts), [`examples/`](examples) | figures, the scripts used to create the data, example inputs and contigs |
 
 Full submission archives (scaffolds, complete `evaluate_bbs.sh` output incl. refolded structures, summaries, raw RFD4 outputs,
 inputs, scripts; ~3 GB per mode, too large for git): `MBR4_RFD4_indexed_MotifBench_submission.zip` and

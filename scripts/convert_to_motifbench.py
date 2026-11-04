@@ -1,5 +1,4 @@
-# Origin: cc
-# Purpose: Convert RFD4-Proteina design CIFs into a MotifBench scaffold directory (PDBs + scaffold_info.csv) with motif-RMSD QC.
+# Convert RFD4-Proteina design CIFs into a MotifBench scaffold directory (PDBs + scaffold_info.csv) with motif-RMSD QC.
 """
 Indexed:   placements come from the spec's layout.tsv (gap lengths are fixed per design key <case>__<i>).
 Unindexed: placements come from the model's insertion mapping written into the output CIF
@@ -10,7 +9,7 @@ Unindexed: placements come from the model's insertion mapping written into the o
            and the repair is reported in qc.tsv.
 
 Usage:
-  python MBR4_convert_to_motifbench_cc.py --mode indexed|unindexed --samples <inference_samples dir>
+  python convert_to_motifbench.py --mode indexed|unindexed --samples <inference_samples dir>
          --seg-map in/specs/seg_map.json --motif-dir <MotifBench motif_pdbs> --out <scaffolds dir>
          [--layout layout.tsv] [--cases 01_1LDB ...]
 """

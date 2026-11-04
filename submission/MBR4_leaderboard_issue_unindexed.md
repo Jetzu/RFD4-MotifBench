@@ -14,7 +14,31 @@ designs; rep1 / rep2 / rep3: 59.75 / 59.98 / 61.36). All three sets are submitte
 | 3 | 9.00 ± 0.00 | 21.60 ± 0.85 | 0.33 ± 0.01 | 32.73 ± 0.61 |
 | overall | 28.00 ± 1.00 | 22.05 ± 0.59 | 0.34 ± 0.02 | 33.69 ± 0.43 |
 
-Per replicate: `rep{1,2,3}/results/summary_by_problem.csv` and `overall_summary.csv` in the archive.
+### Per replicate (official `overall_summary.csv` of each set)
+
+| Replicate | MotifBench score |
+|---|---|
+| rep1 | 59.75 |
+| rep2 | 59.98 |
+| rep3 | 61.36 |
+
+| Replicate | Group | Number_Solved | Mean_Num_Solutions | Mean_Novelty | Mean_Success_rate |
+|---|---|---|---|---|---|
+| rep1 | 1 | 10 | 35.70 | 0.36 | 44.80 |
+| rep1 | 2 | 10 | 7.70 | 0.40 | 22.60 |
+| rep1 | 3 | 9 | 20.70 | 0.33 | 32.20 |
+| rep1 | overall | 29 | 21.37 | 0.36 | 33.20 |
+| rep2 | 1 | 9 | 37.20 | 0.32 | 44.20 |
+| rep2 | 2 | 9 | 7.50 | 0.33 | 24.00 |
+| rep2 | 3 | 9 | 22.40 | 0.34 | 33.40 |
+| rep2 | overall | 27 | 22.37 | 0.33 | 33.87 |
+| rep3 | 1 | 10 | 37.50 | 0.36 | 45.60 |
+| rep3 | 2 | 9 | 8.00 | 0.35 | 23.80 |
+| rep3 | 3 | 9 | 21.70 | 0.33 | 32.60 |
+| rep3 | overall | 28 | 22.40 | 0.34 | 34.00 |
+
+Per-problem numbers of every replicate: `rep{1,2,3}/results/summary_by_problem.csv` in the archive and
+`results/<mode>/rep<r>/` in https://github.com/Jetzu/RFD4-MotifBench.
 
 ## 2. Permanent download link
 

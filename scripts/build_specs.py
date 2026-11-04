@@ -1,5 +1,4 @@
-# Origin: cc
-# Purpose: Build RFD4-Proteina condition specs (YAML) for the 30 MotifBench problems, indexed and unindexed.
+# Build RFD4-Proteina condition specs (YAML) for the 30 MotifBench problems, indexed and unindexed.
 """
 Inputs (read-only):
   --json-dir   RFD3 ExpertGuess contig JSONs (contig, length, select_unfixed_sequence)
