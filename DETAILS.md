@@ -294,7 +294,7 @@ Full submission archives (scaffolds, complete `evaluate_bbs.sh` output incl. ref
 inputs, scripts; ~3 GB per mode, too large for git): `MBR4_RFD4_indexed_MotifBench_submission.zip` and
 `MBR4_RFD4_unindexed_MotifBench_submission.zip` on Zenodo: [10.5281/zenodo.23942848](https://doi.org/10.5281/zenodo.23942848)
 
-For a single leaderboard entry per mode, `rep1` was designated before any scores were known.
+All three replicates per mode are submitted; the reported MotifBench score is their mean ± SD.
 
 
 ## Contact

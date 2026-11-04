@@ -2,25 +2,23 @@
 
 **Entry name:** RFD4-Proteina (unindexed)
 
-**MotifBench score:** 59.75 (rep1, designated submission); **60.36 ± 0.87** over 3 independently generated and
-evaluated scaffold sets (rep1/rep2/rep3: 59.75 / 59.98 / 61.36)
+**MotifBench score: 60.36 ± 0.87** (mean ± SD over 3 independently generated and evaluated scaffold sets of 30 × 100
+designs; rep1 / rep2 / rep3: 59.75 / 59.98 / 61.36). All three sets are submitted.
 
-## 1. Success rate summary (`scripts/summarize_results.sh`, rep1)
+## 1. Success rate summary (`scripts/summarize_results.sh`, mean ± SD over rep1-3)
 
 | Group | Number_Solved | Mean_Num_Solutions | Mean_Novelty | Mean_Success_rate |
 |---|---|---|---|---|
-| 1 | 10 | 35.70 | 0.36 | 44.80 |
-| 2 | 10 | 7.70 | 0.40 | 22.60 |
-| 3 | 9 | 20.70 | 0.33 | 32.20 |
-| overall | 29 | 21.37 | 0.36 | 33.20 |
+| 1 | 9.67 ± 0.58 | 36.80 ± 0.96 | 0.35 ± 0.02 | 44.87 ± 0.70 |
+| 2 | 9.33 ± 0.58 | 7.73 ± 0.25 | 0.36 ± 0.04 | 23.47 ± 0.76 |
+| 3 | 9.00 ± 0.00 | 21.60 ± 0.85 | 0.33 ± 0.01 | 32.73 ± 0.61 |
+| overall | 28.00 ± 1.00 | 22.05 ± 0.59 | 0.34 ± 0.02 | 33.69 ± 0.43 |
 
-MotifBench score: 59.75
-
-Per problem: `rep1/results/summary_by_problem.csv` in the archive.
+Per replicate: `rep{1,2,3}/results/summary_by_problem.csv` and `overall_summary.csv` in the archive.
 
 ## 2. Permanent download link
 
-[10.5281/zenodo.23942848](https://doi.org/10.5281/zenodo.23942848): `MBR4_RFD4_unindexed_MotifBench_submission.zip` with the submitted scaffold sets (rep1-3, MotifBench format), the full
+[10.5281/zenodo.23942848](https://doi.org/10.5281/zenodo.23942848): `MBR4_RFD4_unindexed_MotifBench_submission.zip` with the three submitted scaffold sets (rep1-3, MotifBench format), the full
 evaluation output (`evaluate_bbs.sh`, 30 problems × 3 replicates), the summaries, the raw RFD4 outputs, the inputs and the scripts.
 
 ## 3. How the scaffolds were generated
