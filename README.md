@@ -15,7 +15,8 @@ generated and evaluated scaffold sets (30 problems × 100 designs each), all sub
 
 Full method description, per-problem results, comparison with RFD3, recycle-strategy comparison, figures, motif-placement
 and chain-break analysis, timing and hardware: **[DETAILS.md](DETAILS.md)**. The six submission texts below are also
-available separately in [`submission/`](submission).
+available separately in [`submission/`](submission), together with one combined text per thinking level
+([low](submission/MBR4_submission_thinking_low.md), [medium](submission/MBR4_submission_thinking_medium.md), [high](submission/MBR4_submission_thinking_high.md)).
 
 ## indexed thinking_low
 
