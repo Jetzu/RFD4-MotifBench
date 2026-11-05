@@ -1,0 +1,7 @@
+Group,Number_Solved,Mean_Num_Solutions,Mean_Novelty,Mean_Success_rate
+1,9,35.00,0.33,49.60
+2,9,7.40,0.33,30.80
+3,9,19.50,0.30,58.20
+overall,27,20.63,0.32,46.20
+
+MotifBench score: 55.10

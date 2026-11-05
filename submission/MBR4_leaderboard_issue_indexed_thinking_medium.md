@@ -1,6 +1,6 @@
-# MotifBench leaderboard submission: RFD4-Proteina (indexed)
+# MotifBench leaderboard submission: RFD4-Proteina (indexed, thinking_medium)
 
-**Entry name:** RFD4-Proteina (indexed)
+**Entry name:** RFD4-Proteina (indexed, thinking_medium)
 
 **MotifBench score: 55.06 ± 1.35** (mean ± SD over 3 independently generated and evaluated scaffold sets of 30 × 100
 designs; rep1 / rep2 / rep3: 56.61 / 54.18 / 54.38). All three sets are submitted.
@@ -38,26 +38,25 @@ designs; rep1 / rep2 / rep3: 56.61 / 54.18 / 54.38). All three sets are submitte
 | rep3 | overall | 28 | 19.83 | 0.34 | 45.07 |
 
 Per-problem numbers of every replicate: `rep{1,2,3}/results/summary_by_problem.csv` in the archive and
-`results/<mode>/rep<r>/` in https://github.com/Jetzu/RFD4-MotifBench.
+`results/` in https://github.com/Jetzu/RFD4-MotifBench.
 
 ## 2. Permanent download link
 
-[10.5281/zenodo.23942848](https://doi.org/10.5281/zenodo.23942848): `MBR4_RFD4_indexed_MotifBench_submission.zip` with the three submitted scaffold sets (rep1-3, MotifBench format), the full
-evaluation output (`evaluate_bbs.sh`, 30 problems × 3 replicates), the summaries, the raw RFD4 outputs, the inputs and the scripts.
+[10.5281/zenodo.23942848](https://doi.org/10.5281/zenodo.23942848): `MBR4_RFD4_indexed_thinking_medium_MotifBench_submission.zip` with the three submitted scaffold sets (rep1-3, MotifBench format), the full evaluation output
+(`evaluate_bbs.sh`, 30 problems × 3 replicates), the summaries, the raw RFD4 outputs, the inputs and the scripts.
 
 ## 3. How the scaffolds were generated
 
 RFD4-Proteina (RosettaCommons / NVIDIA), source commit `ed63183a`, weights `rfd4-proteina-flow-release-2026-10-19` (HF revision
-`a06e2509`), default sampler (60 steps, `thinking_medium` recycling, bf16), no filtering or reranking: all 100 designs per problem
-are submitted. All segments of a motif are one input on one chain with native coordinates in one frame. Redesignable motif residues
-(UNK) get backbone-only coordinate conditioning and no sequence; all other motif residues get all-atom coordinates and sequence.
-Motif segments placed with MotifBench's reference contigs (`example/contig_specifications.csv`); per design, gap lengths are sampled uniformly inside the contig ranges subject to the problem's total length.
+`a06e2509`), sampler with 60 steps and `thinking_medium` recycling (`n_recycle_schedule` [[5,6],[10,5],[5,4],[10,3],[20,2],[10,1]], 180 trunk passes per design (RFD4 default)), bf16, no filtering or
+reranking: all 100 designs per problem are submitted. All segments of a motif are one input on one chain with native coordinates in
+one frame. Redesignable motif residues (UNK) get backbone-only coordinate conditioning and no sequence; all other motif residues get
+all-atom coordinates and sequence. Motif segments placed with MotifBench's reference contigs (`example/contig_specifications.csv`); per design, gap lengths are sampled uniformly inside the contig ranges subject to the problem's total length. The three thinking settings use identical inputs, seeds and (indexed) gap layouts.
 Full description and figures: https://github.com/Jetzu/RFD4-MotifBench
 
 ## 4. Compute resources
 
-Generation (indexed, 9,000 backbones = 3 × 30 × 100): 20.3 GPU-hours, ~8 s per backbone including compilation, NVIDIA RTX
-A5000 / RTX 4090 on a university cluster (TUM).
+Generation (indexed, thinking_medium, 9,000 backbones = 3 × 30 × 100): 20.3 GPU-hours, ~8 s per backbone including compilation, NVIDIA RTX A5000 / RTX 4090 on a university cluster (TUM).
 
 ## 5. Contact
 

@@ -1,0 +1,7 @@
+mode,strategy,mb_score_mean,mb_score_sd,rep_scores,solved_mean,unique_mean,unique_sd,success_rate_mean,success_rate_sd
+indexed,thinking_low,53.95,1.00,53.28/55.10/53.47,28.33,19.72,0.80,45.71,0.42
+indexed,thinking_medium,55.06,1.35,56.61/54.18/54.38,28.33,20.50,1.04,46.28,1.68
+indexed,thinking_high,55.28,0.16,55.32/55.10/55.41,28.33,19.92,0.31,46.36,0.33
+unindexed,thinking_low,58.64,1.21,57.25/59.40/59.27,28.00,20.99,0.77,32.06,0.63
+unindexed,thinking_medium,60.36,0.87,59.75/59.98/61.36,28.00,22.04,0.59,33.69,0.43
+unindexed,thinking_high,60.21,0.57,60.87/59.86/59.90,28.67,21.71,0.40,34.44,0.77

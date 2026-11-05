@@ -5,20 +5,28 @@
 ## General Information
 All 30 [MotifBench](https://github.com/blt2114/MotifBench) benchmark problems, generated with
 **RFD4-Proteina** (RosettaCommons / NVIDIA) on a cluster of the Technical University of Munich (TUM),
-in two modes:
+in two modes and three recycling settings, i.e. **six leaderboard entries**:
 
 - **Indexed**: the motif segments are placed by contigs (the same contigs as the RFD3 runs).
 - **Unindexed**: RFD4 decides where in the sequence each motif segment goes.
+- **Recycling**: `thinking_low`, `thinking_medium` (RFD4's default) and `thinking_high` (120 / 180 / 300 trunk passes per
+  design); everything else identical (inputs, seeds, indexed layouts).
 
-Each mode was run as **3 independent generation replicates** (new backbones each time, not only
+Each entry was run as **3 independent generation replicates** (new backbones each time, not only
 re-evaluation of one backbone set), 100 designs per problem, all evaluated with MotifBench's own pipeline.
 
 Companion to the RFD3 runs by Lorenz Kleiter:
 [RFD3-MotifBench-Fixed](https://github.com/lorenzkleiter/RFD3-Motifbench-Fixed) (contigs) and
 [RFD3-Unindexed-MotifBench](https://github.com/lorenzkleiter/RFD3-Unindexed-MotifBench) (unindexed).
 
-**Results:** RFD4 scores **55.01 ± 1.37** (indexed) and **60.37 ± 0.88** (unindexed), against
-**43.51 ± 1.59** and **31.88 ± 0.60** for post-bugfix RFD3 with the same contigs and the same MotifBench install.
+**Results:** with the default `thinking_medium`, RFD4 scores **55.01 ± 1.37** (indexed) and **60.37 ± 0.88** (unindexed),
+against **43.51 ± 1.59** and **31.88 ± 0.60** for post-bugfix RFD3 with the same contigs and the same MotifBench install.
+All six entries (official scores, mean ± SD over 3 replicates):
+
+| | thinking_low | thinking_medium | thinking_high |
+|---|---|---|---|
+| indexed | 53.95 ± 1.00 | 55.06 ± 1.35 | 55.28 ± 0.16 |
+| unindexed | 58.64 ± 1.21 | 60.36 ± 0.87 | 60.21 ± 0.57 |
 
 <div align="center">
   <img src="figures/MBR4_fig_overall_and_groups.png" alt="Overall MotifBench score and unique solutions per group" width="900">
@@ -146,7 +154,7 @@ ran on the TUM cluster, 165 on Modal (NVIDIA L40S) with the identical conda envi
 The official per-replicate score uses MotifBench's unseeded bootstrap; the figures below re-run the same bootstrap
 with a fixed seed (as in the RFD3 write-ups), which gives 55.01 ± 1.37 and 60.37 ± 0.88.
 
-Per-problem numbers: [`results/indexed`](results/indexed), [`results/unindexed`](results/unindexed),
+Per-problem numbers: [`results/indexed_thinking_medium`](results/indexed_thinking_medium), [`results/unindexed_thinking_medium`](results/unindexed_thinking_medium),
 all four pipelines side by side: [`results/MBR4_per_problem_all_pipelines.csv`](results/MBR4_per_problem_all_pipelines.csv).
 
 ### Indexed vs unindexed
@@ -191,6 +199,40 @@ write-ups, which use ddof = 0). \* RFD3 unindexed success rates are over the des
   replicates per mode.
 
 
+## Recycle strategy: thinking_low / thinking_medium / thinking_high
+
+The same 30 problems, both modes, 3 replicates each, generated again with `recycle_strategy=thinking_low` and
+`thinking_high` (`n_recycle_schedule` [[10,4],[10,3],[10,2],[30,1]] = 120 and [[10,9],[10,8],[10,5],[20,3],[10,2]] = 300 trunk
+passes per design, against 180 for the default `thinking_medium`). Inputs, seeds and the sampled indexed gap layouts are identical
+to the default runs, so the recycling schedule is the only difference. Same evaluation.
+
+<div align="center">
+  <img src="figures/MBR4_fig_sweep_overall.png" alt="MotifBench score, unique solutions and success rate per recycle strategy" width="900">
+</div>
+
+| mode | setting | MotifBench score | rep1 / rep2 / rep3 | solved | mean unique solutions | mean success rate |
+|---|---|---|---|---|---|---|
+| indexed | thinking_low | 53.95 ± 1.00 | 53.28 / 55.10 / 53.47 | 28.3/30 | 19.72 | 45.71 % |
+| indexed | thinking_medium | 55.06 ± 1.35 | 56.61 / 54.18 / 54.38 | 28.3/30 | 20.50 | 46.28 % |
+| indexed | thinking_high | 55.28 ± 0.16 | 55.32 / 55.10 / 55.41 | 28.3/30 | 19.92 | 46.36 % |
+| unindexed | thinking_low | 58.64 ± 1.21 | 57.25 / 59.40 / 59.27 | 28.0/30 | 20.99 | 32.06 % |
+| unindexed | thinking_medium | 60.36 ± 0.87 | 59.75 / 59.98 / 61.36 | 28.0/30 | 22.04 | 33.69 % |
+| unindexed | thinking_high | 60.21 ± 0.57 | 60.87 / 59.86 / 59.90 | 28.7/30 | 21.71 | 34.44 % |
+
+More recycling helps only up to the default: `thinking_low` costs about 1-2 points in both modes (fewer unique solutions,
+slightly lower success rate), `thinking_high` is within the replicate spread of `thinking_medium` (slightly higher success rate,
+not more unique solutions) with 1.7× the trunk passes of the default (on the same L40S GPUs `thinking_high` took 7.5 s per design, `thinking_low` 4.0 s). Per-problem scores:
+
+<div align="center">
+  <img src="figures/MBR4_fig_sweep_per_problem.png" alt="Per-problem MotifBench score per recycle strategy" width="900">
+</div>
+
+Tables: [`results/MBR4_sweep_overall.csv`](results/MBR4_sweep_overall.csv),
+[`results/MBR4_sweep_per_problem.csv`](results/MBR4_sweep_per_problem.csv); official summaries of every set in
+`results/<mode>_thinking_<setting>/rep<r>/`. The official per-replicate scores come from MotifBench's unseeded bootstrap, so
+re-running `summarize_results.sh` changes them in the second decimal.
+
+
 ## Placement of motif stretches in unindexed mode
 
 RFD4 keeps the unindexed motif tokens separate from the generated chain and predicts, with an insertion head, which
@@ -232,6 +274,7 @@ database, RFD4 image and weights, project directory) are read from environment v
 |---|---|---|
 | 1. inputs | [`build_specs.py`](scripts/build_specs.py) | motif CIFs (all segments of a motif on one chain) and the RFD4 condition specs: indexed (100 designs per problem, gap lengths sampled inside the contig ranges, total length fixed) and unindexed |
 | 2. generation | [`rfd4_generate.sh`](scripts/rfd4_generate.sh), [`rfd4_container.sh`](scripts/rfd4_container.sh) | `rfd4-generate` on one spec file inside the RFD4-Proteina Apptainer image |
+| 2b. generation (`thinking_low` / `thinking_high`) | [`modal_rfd4_generate.py`](scripts/modal_rfd4_generate.py) | the same `rfd4-generate` call on Modal L40S GPUs (same package set), with `recycle_strategy=thinking_low|high` |
 | 3. conversion | [`convert_to_motifbench.py`](scripts/convert_to_motifbench.py) | RFD4 output CIFs → MotifBench scaffold PDBs + `scaffold_info.csv` (indexed: sampled layout; unindexed: RFD4 insertion mapping, window repair where needed) |
 | 4. evaluation | [`evaluate_case.sh`](scripts/evaluate_case.sh) (cluster), [`modal_evaluate.py`](scripts/modal_evaluate.py) (Modal L40S) | MotifBench's own `evaluate_bbs.sh` for one problem; the only differences to a plain call are the working directory and the Foldseek thread count |
 
@@ -257,6 +300,17 @@ Steady-state speed per problem (median time between consecutive designs, i.e. wi
 6.0 s/design indexed and 6.5 s/design unindexed (range 3.3-17.9 s depending on length, 75-225 residues). One process
 per GPU, batch size 1, bf16, 4 CPU cores, 48 GB RAM per job, RFD4-Proteina Apptainer image (PyTorch 2.11, CUDA 12.8).
 
+### Generation of the `thinking_low` / `thinking_high` entries
+
+| setting | GPU | indexed (9,000 designs) | unindexed (9,000 designs) | s / design incl. model load + compilation |
+|---|---|---|---|---|
+| thinking_low | NVIDIA L40S (48 GB), Modal | 10.0 GPU-h | 9.7 GPU-h | 3.9-4.0 |
+| thinking_high | NVIDIA L40S (48 GB), Modal | 18.8 GPU-h | 19.1 GPU-h | 7.5-7.6 |
+
+Same package set as the cluster runs (PyTorch 2.11, CUDA 12.8), one process per GPU, 1,000 designs per job.
+Their 360 problem evaluations ran on Modal L40S (4 problems per GPU) and on cluster GPUs (RTX A5000, RTX 2080 Ti,
+GTX 1080 Ti, RTX PRO 6000 MIG slices) with the same evaluation environment.
+
 ### Evaluation (MotifBench `evaluate_bbs.sh`: ProteinMPNN 8 seq/backbone + ESMFold + Foldseek, 100 backbones per problem)
 
 | where | GPU | problems evaluated | GPU sharing | median wall time per problem | range |
@@ -279,17 +333,17 @@ In this repository:
 
 | path | content |
 |---|---|
-| [`scaffolds/`](scaffolds) | the submitted scaffold sets, one zip per mode and replicate (`{case}/{case}_{i}.pdb` + `scaffold_info.csv`, MotifBench format) |
+| [`scaffolds/`](scaffolds) | the `thinking_medium` scaffold sets, one zip per mode and replicate (`{case}/{case}_{i}.pdb` + `scaffold_info.csv`, MotifBench format); all six entries are in the Zenodo archives |
 | [`results/`](results) | official summaries per replicate (`summary_by_problem.csv`, `overall_summary.csv`), cross-pipeline tables, chain-break census |
 | [`evaluation_tables/`](evaluation_tables) | per-design evaluation tables for every problem and replicate (`esm_complete_results.csv`, `esm_summary_results.csv`, `esm_novelty_results.csv`, `diversity_cluster.tsv`, `esm_summary.txt`) |
-| [`submission/`](submission) | the MotifBench leaderboard submission text per mode |
+| [`submission/`](submission) | the MotifBench leaderboard submission text per entry (6) |
 | [`figures/`](figures), [`scripts/`](scripts), [`examples/`](examples) | figures, the scripts used to create the data, example inputs and contigs |
 
 Full submission archives (scaffolds, complete `evaluate_bbs.sh` output incl. refolded structures, summaries, raw RFD4 outputs,
-inputs, scripts; ~3 GB per mode, too large for git): `MBR4_RFD4_indexed_MotifBench_submission.zip` and
-`MBR4_RFD4_unindexed_MotifBench_submission.zip` on Zenodo: [10.5281/zenodo.23942848](https://doi.org/10.5281/zenodo.23942848)
+inputs, scripts, logs; ~3 GB per entry, too large for git): `MBR4_RFD4_<mode>_thinking_<setting>_MotifBench_submission.zip`
+for the six entries on Zenodo: [10.5281/zenodo.23942848](https://doi.org/10.5281/zenodo.23942848)
 
-All three replicates per mode are submitted; the reported MotifBench score is their mean ± SD.
+All three replicates per entry are submitted; the reported MotifBench score is their mean ± SD.
 
 
 ## Contact
